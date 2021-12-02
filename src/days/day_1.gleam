@@ -1,20 +1,19 @@
-import gleam/int
-import gleam/io
-import gleam/list
-import gleam/string
+import gleam/int.{sum}
+import gleam/list.{fold, map, try_map, window, window_by_2}
+import gleam/string.{split}
 
 pub fn run(input) {
   assert Ok(input) =
-    string.split(input, on: "\n")
-    |> list.try_map(int.parse)
+    split(input, on: "\n")
+    |> try_map(int.parse)
 
   #(pt_1(input), pt_2(input))
 }
 
 fn pt_1(input: List(Int)) -> Int {
   input
-  |> list.window_by_2
-  |> list.fold(
+  |> window_by_2
+  |> fold(
     0,
     fn(acc, pair: #(Int, Int)) {
       acc + case pair.1 - pair.0 > 0 {
@@ -27,7 +26,7 @@ fn pt_1(input: List(Int)) -> Int {
 
 fn pt_2(input: List(Int)) -> Int {
   input
-  |> list.window(3)
-  |> list.map(list.fold(_, 0, fn(x, y) { x + y }))
+  |> window(3)
+  |> map(sum)
   |> pt_1
 }
