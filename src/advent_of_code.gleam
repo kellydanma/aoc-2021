@@ -1,4 +1,5 @@
 import days/day_1
+import days/day_2
 import gleam/list
 import gleam/io
 import gleam/int
@@ -17,6 +18,7 @@ import snag.{Result}
 fn runners() {
   map.new()
   |> map.insert(1, day_1.run)
+  |> map.insert(2, day_2.run)
 }
 
 pub fn main() {
